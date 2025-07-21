@@ -41,7 +41,7 @@ def cpu_task(iterations, loops=1):
             x, y = y, x + y
     return x + y
 
-def cpu_benchmark_singlecore(total_iterations=5_000_000, loops=5):
+def cpu_benchmark_singlecore(total_iterations=10_000_000, loops=5):
     """
     Benchmark CPU utilisant un seul cœur (séquentiel).
     - total_iterations : Nombre total d'itérations à exécuter.
@@ -60,7 +60,7 @@ def cpu_benchmark_singlecore(total_iterations=5_000_000, loops=5):
     print(f"Single-core CPU benchmark completed in {end - start:.2f} seconds")
     return end - start
 
-def cpu_benchmark_multicore(total_iterations=50_000_000, n_jobs=None, loops=50):
+def cpu_benchmark_multicore(total_iterations=100_000_000, n_jobs=None, loops=50):
     """
     Benchmark multicore avec joblib utilisant tous les cœurs disponibles.
     - total_iterations : Nombre total d'itérations à exécuter.
