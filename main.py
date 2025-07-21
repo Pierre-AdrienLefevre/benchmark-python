@@ -80,7 +80,7 @@ def log_benchmark_result(test_name, duration, system_info, log_file=f"benchmark_
     
     print(f"✅ {test_name}: {duration:.2f}s - Logged to {log_file}")
 
-def combined_cpu_gpu_benchmark(cpu_iterations=8_000_000_000, gpu_size=15_000, gpu_loops=400, n_jobs=None, loops=100):
+def combined_cpu_gpu_benchmark(cpu_iterations=8_000_000_000, gpu_size=15_000, gpu_loops=400, n_jobs=None, loops=50):
     """
     Benchmark combiné CPU + GPU.
     - cpu_iterations : Nombre total d'itérations pour le CPU.

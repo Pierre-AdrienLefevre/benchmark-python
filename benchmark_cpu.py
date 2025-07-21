@@ -140,7 +140,7 @@ def cpu_benchmark_singlecore(total_iterations=500_000_000, loops=5):
     print(f"Single-core CPU benchmark completed in {end - start:.2f} seconds")
     return end - start
 
-def cpu_benchmark_multicore(total_iterations=8_000_000_000, n_jobs=None, loops=100):
+def cpu_benchmark_multicore(total_iterations=8_000_000_000, n_jobs=None, loops=50):
     """
     Benchmark multicore avec joblib utilisant tous les cœurs disponibles.
     - total_iterations : Nombre total d'itérations à exécuter.
