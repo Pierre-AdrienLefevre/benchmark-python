@@ -63,7 +63,7 @@ def get_system_info():
     
     return info
 
-def log_benchmark_result(test_name, duration, system_info, log_file="benchmark_results.log"):
+def log_benchmark_result(test_name, duration, system_info, log_file=f"benchmark_results-{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log"):
     """
     Enregistre les résultats de benchmark dans un fichier log.
     """
@@ -80,7 +80,7 @@ def log_benchmark_result(test_name, duration, system_info, log_file="benchmark_r
     
     print(f"✅ {test_name}: {duration:.2f}s - Logged to {log_file}")
 
-def combined_cpu_gpu_benchmark(cpu_iterations=50_000_000, gpu_size=10_000, gpu_loops=400, n_jobs=None, loops=50):
+def combined_cpu_gpu_benchmark(cpu_iterations=8_000_000_000, gpu_size=15_000, gpu_loops=400, n_jobs=None, loops=100):
     """
     Benchmark combiné CPU + GPU.
     - cpu_iterations : Nombre total d'itérations pour le CPU.
@@ -168,6 +168,6 @@ if __name__ == "__main__":
     for test_name, duration in results.items():
         print(f"  {test_name}: {duration:.2f}s")
     
-    print(f"\n📝 Detailed results logged to: benchmark_results.log")
+    print(f"\n📝 Detailed results logged to: benchmark_results-{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log")
     print(f"🖥️  Machine: {system_info['hostname']} ({system_info['platform']['system']} {system_info['platform']['machine']})")
     print(f"⏰ Session completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
