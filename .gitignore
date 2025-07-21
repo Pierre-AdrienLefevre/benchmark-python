@@ -272,9 +272,5 @@ cython_debug/
 # Claude.ai development files (keep local only)
 CLAUDE.md
 
-# Benchmark results and logs
-benchmark_results-*.log
-benchmark_test_file
-
 # uv lock file (uncomment if you want to include it)
 uv.lock

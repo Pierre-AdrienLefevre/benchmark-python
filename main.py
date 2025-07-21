@@ -68,7 +68,7 @@ def get_system_info():
 
 
 def log_benchmark_result(test_name, duration, system_info,
-                         log_file=f"benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log"):
+                         log_file=f"results/benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log"):
     """
     Enregistre les résultats de benchmark dans un fichier log.
     """
@@ -173,6 +173,7 @@ if __name__ == "__main__":
     for test_name, duration in results.items():
         print(f"  {test_name}: {duration:.2f}s")
 
-    print(f"\n📝 Detailed results logged to: benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log")
+    print(
+        f"\n📝 Detailed results logged to: results/benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log")
     print(f"🖥️  Machine: {system_info['hostname']} ({system_info['platform']['system']} {system_info['platform']['machine']})")
     print(f"⏰ Session completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
