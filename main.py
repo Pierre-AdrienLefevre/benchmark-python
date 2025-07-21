@@ -1,15 +1,18 @@
+import json
 import os
-import torch
-from threading import Thread
-import time
 import platform
 import socket
-import psutil
+import time
 from datetime import datetime
-import json
+from threading import Thread
+
+import psutil
+import torch
+
 from benchmark_cpu import cpu_benchmark_singlecore, cpu_benchmark_multicore
-from benchmark_gpu import gpu_benchmark_pytorch
 from benchmark_disk_ram import ram_benchmark, disk_benchmark
+from benchmark_gpu import gpu_benchmark_pytorch
+
 
 def get_system_info():
     """
@@ -63,7 +66,9 @@ def get_system_info():
     
     return info
 
-def log_benchmark_result(test_name, duration, system_info, log_file=f"benchmark_results-{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log"):
+
+def log_benchmark_result(test_name, duration, system_info,
+                         log_file=f"benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log"):
     """
     Enregistre les résultats de benchmark dans un fichier log.
     """
@@ -167,7 +172,7 @@ if __name__ == "__main__":
     print("\n📊 Final Results Summary:")
     for test_name, duration in results.items():
         print(f"  {test_name}: {duration:.2f}s")
-    
-    print(f"\n📝 Detailed results logged to: benchmark_results-{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}.log")
+
+    print(f"\n📝 Detailed results logged to: benchmark_results-{datetime.now().strftime('%Y-%m-%d %H-%M-%S')}.log")
     print(f"🖥️  Machine: {system_info['hostname']} ({system_info['platform']['system']} {system_info['platform']['machine']})")
     print(f"⏰ Session completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
