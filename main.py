@@ -1,8 +1,6 @@
-import numpy as np
 import os
 import torch
 from threading import Thread
-from joblib import Parallel, delayed
 import time
 from benchmark_cpu import cpu_benchmark_singlecore, cpu_benchmark_multicore
 from benchmark_gpu import gpu_benchmark_pytorch

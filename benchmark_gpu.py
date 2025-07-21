@@ -1,6 +1,6 @@
 import torch
 import time
-def gpu_benchmark_pytorch(size=15_000, loops=200):  # Matrices 5,000 x 5,000, 200 répétitions
+def gpu_benchmark_pytorch(size=15_000, loops=200):  # Matrices 15,000 x 15,000, 200 répétitions
     print("Starting extended GPU benchmark with PyTorch...")
     if torch.cuda.is_available() or torch.backends.mps.is_available():
         device = "cuda" if torch.cuda.is_available() else "mps"  # 'mps' for Metal on macOS

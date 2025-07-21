@@ -5,55 +5,119 @@ from joblib import Parallel, delayed
 
 def cpu_task(iterations, loops=1):
     """
-    Tâche CPU intensive : calculs mathématiques complexes combinés.
-    Inclut multiplication matricielle, trigonométrie, et opérations vectorielles.
+    Tâche CPU intensive orientée Data Science.
+    Simule les opérations typiques d'un workflow de machine learning et d'analyse de données.
     """
     import math
     total_result = 0
-
+    
     for loop in range(loops):
-        # 1. Calculs trigonométriques intensifs
-        trig_sum = 0
-        for i in range(iterations // 4):
-            x = i * 0.001
-            trig_sum += math.sin(x) * math.cos(x) + math.tan(x / (1 + x))
-
-        # 2. Multiplications matricielles avec NumPy (plus intensives)
-        matrix_result = 0
-        matrix_size = min(800, int(math.sqrt(iterations // 4)))
-        if matrix_size > 10:
-            # Plusieurs multiplications pour être plus intensif
-            for _ in range(3):
-                a = np.random.rand(matrix_size, matrix_size)
-                b = np.random.rand(matrix_size, matrix_size)
-                c = np.dot(a, b)
-                matrix_result += np.sum(c * c)  # Opération supplémentaire
-
-        # 3. Calculs de nombres premiers (beaucoup plus intensif)
-        prime_count = 0
-        max_n = min(50000, iterations // 5)  # Augmenté significativement
-        for n in range(2, max_n):
-            is_prime = True
-            for i in range(2, int(math.sqrt(n)) + 1):
-                if n % i == 0:
-                    is_prime = False
-                    break
-            if is_prime:
-                prime_count += 1
-
-        # 4. Opérations sur tableaux NumPy (beaucoup plus intensives)
-        if iterations > 1000:
-            array_size = min(500000, iterations)
-            # Plusieurs opérations complexes
-            arr1 = np.random.rand(array_size)
-            arr2 = np.random.rand(array_size)
-            # Calculs très gourmands
-            array_result = np.sum(np.sqrt(arr1) * np.log1p(arr1) * np.sin(arr2))
-            array_result += np.sum(np.exp(arr1 * 0.01) * np.cos(arr2))
+        # 1. Simulation d'entraînement de modèle de régression linéaire
+        sample_size = min(100000, iterations // 2)
+        if sample_size > 1000:
+            # Génération de dataset synthétique
+            X = np.random.randn(sample_size, 10)  # 10 features
+            noise = np.random.randn(sample_size) * 0.1
+            y = np.sum(X * np.random.randn(10), axis=1) + noise
+            
+            # Calcul des coefficients par moindres carrés (CPU intensif)
+            XtX = np.dot(X.T, X)
+            Xty = np.dot(X.T, y)
+            # Répéter plusieurs fois pour intensifier
+            for _ in range(5):
+                coeffs = np.linalg.solve(XtX + np.eye(10) * 0.01, Xty)
+                predictions = np.dot(X, coeffs)
+                mse = np.mean((y - predictions) ** 2)
+            regression_result = np.sum(coeffs) + mse
         else:
-            array_result = 0
-
-        total_result += trig_sum + matrix_result + prime_count + array_result
+            regression_result = 0
+        
+        # 2. Simulation de clustering K-Means (CPU intensif)
+        n_samples = min(50000, iterations // 4)
+        if n_samples > 500:
+            data = np.random.randn(n_samples, 5)
+            centroids = np.random.randn(8, 5)  # 8 clusters
+            
+            # Plusieurs itérations de K-means
+            for iter in range(20):  # 20 itérations pour être CPU intensif
+                # Calcul des distances (très CPU intensif)
+                distances = np.zeros((n_samples, 8))
+                for i in range(8):
+                    diff = data - centroids[i]
+                    distances[:, i] = np.sum(diff ** 2, axis=1)
+                
+                # Assignment et update des centroids
+                labels = np.argmin(distances, axis=1)
+                for k in range(8):
+                    mask = labels == k
+                    if np.sum(mask) > 0:
+                        centroids[k] = np.mean(data[mask], axis=0)
+            
+            kmeans_result = np.sum(centroids)
+        else:
+            kmeans_result = 0
+        
+        # 3. Simulation de preprocessing de données (feature engineering)
+        array_size = min(200000, iterations // 3)
+        if array_size > 1000:
+            # Dataset multi-dimensionnel
+            raw_data = np.random.randn(array_size, 15)
+            
+            # Feature engineering intensif
+            # Standardisation (z-score)
+            features_std = (raw_data - np.mean(raw_data, axis=0)) / np.std(raw_data, axis=0)
+            
+            # Création de features polynomiales (CPU intensif)
+            poly_features = np.zeros((array_size, 30))
+            for i in range(15):
+                for j in range(i, 15):
+                    poly_features[:, i+j] = features_std[:, i] * features_std[:, j]
+            
+            # PCA simulation (CPU très intensif)
+            cov_matrix = np.cov(poly_features.T)
+            eigenvals, eigenvecs = np.linalg.eigh(cov_matrix)
+            
+            # Feature selection basée sur la variance
+            variances = np.var(poly_features, axis=0)
+            selected_features = poly_features[:, variances > np.percentile(variances, 75)]
+            
+            preprocessing_result = np.sum(selected_features) + np.sum(eigenvals)
+        else:
+            preprocessing_result = 0
+            
+        # 4. Simulation d'algorithmes d'optimisation (gradient descent)
+        if iterations > 1000:
+            # Fonction objectif complexe avec plusieurs minima locaux
+            def objective_function(x):
+                return np.sum(x**4 - 16*x**2 + 5*x) + np.sum(np.sin(10*x))
+            
+            # Gradient descent avec multiple random starts (CPU intensif)
+            best_result = float('inf')
+            for start in range(min(100, iterations // 10000)):
+                x = np.random.randn(20) * 5  # 20 dimensions
+                learning_rate = 0.01
+                
+                for step in range(200):  # 200 steps de gradient descent
+                    # Calcul numérique du gradient
+                    grad = np.zeros_like(x)
+                    h = 1e-5
+                    for i in range(len(x)):
+                        x_plus = x.copy()
+                        x_minus = x.copy()
+                        x_plus[i] += h
+                        x_minus[i] -= h
+                        grad[i] = (objective_function(x_plus) - objective_function(x_minus)) / (2*h)
+                    
+                    x = x - learning_rate * grad
+                    
+                result = objective_function(x)
+                best_result = min(best_result, result)
+            
+            optimization_result = best_result
+        else:
+            optimization_result = 0
+            
+        total_result += regression_result + kmeans_result + preprocessing_result + optimization_result
 
     return total_result
 
